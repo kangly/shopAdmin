@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
-    <title>XX后台登录</title>
+    <title>小康商城后台登录</title>
     <link href="/static/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -18,7 +18,7 @@
         <div class="auth-box bg-dark border-top border-secondary">
             <div id="login-div">
                 <div class="text-center p-t-20 p-b-20">
-                    <span class="db font-24" style="color: #ffffff;">XX后台登录</span>
+                    <span class="db font-24" style="color: #ffffff;">小康商城后台登录</span>
                 </div>
                 <form class="form-horizontal m-t-20" id="login-form" method="post">
                     {:token_field()}
@@ -74,9 +74,9 @@
             alert('密码不能为空！');
             return false;
         }
-        $.post('/admin.php/login/login', {'username':username,'password':password}, function(data) {
+        $.post("{:url('/login/login')}", {'username':username,'password':password}, function(data) {
             if(data=='success'){
-                location.href = '/admin.php/index';
+                location.href = "{:url('/index')}";
             }else{
                 alert('登陆失败！');
             }
