@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon.png">
     <title>小康商城后台登录</title>
     <link href="/static/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -54,6 +54,7 @@
 </div>
 <script src="/static/libs/jquery/dist/jquery.min.js"></script>
 <script src="/static/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/extra-libs/layer/layer.js"></script>
 <script type="text/javascript">
     $(function () {
         $.ajaxSetup({
@@ -66,19 +67,22 @@
     function go_login(){
         var username = $.trim($('#username').val());
         if(username==''){
-            alert('用户名不能为空！');
+            layer.msg('用户名不能为空！',{icon:"5",time:2000});
             return false;
         }
         var password = $.trim($('#password').val());
         if(password==''){
-            alert('密码不能为空！');
+            layer.msg('密码不能为空！',{icon:"5",time:2000});
             return false;
         }
         $.post("{:url('/login/login')}", {'username':username,'password':password}, function(data) {
             if(data=='success'){
-                location.href = "{:url('/index')}";
+                layer.msg('登陆成功！即将跳转...',{icon:"6",time:1000});
+                setTimeout(function(){
+                    location.href = "{:url('/index')}";
+                },1000);
             }else{
-                alert('登陆失败！');
+                layer.msg(data,{icon:"5",time:2000});
             }
         });
     }
