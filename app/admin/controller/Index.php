@@ -9,8 +9,16 @@ class Index extends Base
 {
     public function index()
     {
-        dump($this->adminInfo);
+        return View::fetch();
+    }
 
+    public function systemInfo()
+    {
+        return View::fetch();
+    }
+
+    public function changePassword()
+    {
         return View::fetch();
     }
 }
