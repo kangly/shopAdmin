@@ -821,6 +821,7 @@ function _add_movable_popup(mark,title,url,area,offset,callback){
     $.get(url,{},function(str){
         if(str){
             layer.open({
+                maxmin: true,
                 type: 1,
                 title: title,
                 area: area?area:['900px','600px'],
