@@ -1,0 +1,168 @@
+<div class="card m-t-10">
+    <form class="form-horizontal" method="post" id="admin-edit-sell-form" action="{:url('/product/saveProduct')}">
+        <div class="card-body p-t-0">
+            <div class="form-group row">
+                <label for="title" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 商品名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="商品名称">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="category_id" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 商品分类</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="category_id" id="category_id">
+                        <option value="0" selected>请选择</option>
+                        <option value="1">默认分类</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="image" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 封面图片</label>
+                <div class="col-sm-8">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="desc" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 商品描述</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="desc" name="desc" placeholder="请输入商品描述" style="visibility: hidden; display: none;"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"><span class="text-danger text-danger-hide">*</span> 上架</label>
+                <div class="col-sm-10 m-t-5">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_sale" id="is_sale_1" value="1" checked>
+                        <label class="form-check-label" for="is_sale_1">是</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_sale" id="is_sale_0" value="0">
+                        <label class="form-check-label" for="is_sale_0">否</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 "><h4 class="pull-right">SKU 列表</h4></div>
+                <div class="col-sm-8"></div>
+            </div>
+
+            <hr class="m-t-0">
+
+            <div>
+                <div class="form-group row">
+                    <label for="sku_title" class="col-sm-2 col-form-label"><span class="text-danger">*</span> SKU 名称</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sku_title" id="sku_title" placeholder="SKU 名称">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sku_desc" class="col-sm-2 col-form-label"><span class="text-danger">*</span> SKU 描述</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sku_desc" id="sku_desc" placeholder="SKU 描述">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sku_price" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 单价</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sku_price" id="sku_price" placeholder="单价">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sku_stock" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 剩余库存</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sku_stock" id="sku_stock" placeholder="剩余库存">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <div class="remove btn btn-warning btn-sm float-right"><i class="fa fa-trash"></i> 移除</div>
+                    </div>
+                </div>
+
+                <hr>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <div class="add btn btn-success btn-sm"><i class="fa fa-save"></i> 新增</div>
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" name="_method" value="POST">
+        <input type="hidden" name="member_id" value="{$member.id|default=0}">
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        ClassicEditor
+            .create(document.querySelector('#desc'), {
+                //配置工具栏的可用按钮，注意必须大小写名称正确。使用： console.log(Array.from(editor.ui.componentFactory.names()));可以控制台输出所有可用的按钮名称
+                toolbar: ['undo', 'redo', 'Bold', 'Italic', 'Underline', 'FontBackgroundColor', 'FontColor', 'FontSize', 'FontFamily', 'Alignment', '|', 'RemoveFormat', 'Link', '|', 'ImageUpload', 'imageTextAlternative', 'imageStyle:full', 'imageStyle:side', 'MediaEmbed', '|', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'],
+                //配置图片的上传链接
+                ckfinder: {
+                    uploadUrl: '/Article/UploadFile?dir=xxx'
+                },
+                //配置可用的字体大小
+                fontSize: {
+                    options: [
+                        9,
+                        11,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20,
+                        22,
+                        24,
+                        26,
+                        28,
+                        30,
+                        32,
+                        34,
+                        36,
+                        38
+                    ]
+                },
+                //配置图片的布局功能
+                image: {
+                    toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
+                    styles: [
+                        'full',
+                        'side',
+                        'alignLeft',
+                        'alignCenter',
+                        'alignRight'
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+
+    function save(callback){
+        submitTheForm('admin-edit-sell-form',function(data){
+            if(data>0){
+                if(callback){
+                    callback();
+                }
+            }
+        });
+    }
+</script>

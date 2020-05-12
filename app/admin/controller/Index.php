@@ -1,5 +1,4 @@
 <?php
-declare (strict_types = 1);
 
 namespace app\admin\controller;
 
@@ -13,11 +12,6 @@ class Index extends Base
     }
 
     public function systemInfo()
-    {
-        return View::fetch();
-    }
-
-    public function changePassword()
     {
         return View::fetch();
     }

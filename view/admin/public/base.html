@@ -15,10 +15,9 @@
     <link type="text/css" rel="stylesheet" href="/static/css/common.min.css">
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/static/js/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/merge.js"></script>
-    <script type="text/javascript" src="/static/js/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="/static/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/ckeditor5/ckeditor.js"></script>
     <script type="text/javascript" src="/static/js/layer/layer.js"></script>
     <script type="text/javascript" src="/static/js/common.js"></script>
     <script type="text/javascript">
@@ -142,9 +141,24 @@
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{:url('/index')}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">工作台</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-shopping"></i><span class="hide-menu">商品管理 </span></a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item m-l-5"><a href="{:url('/product/index')}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 商品列表 </span></a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">订单管理 </span></a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item m-l-5"><a href="{:url('/order/index')}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 订单列表 </span></a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">用户管理 </span></a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item m-l-5"><a href="{:url('/user/index')}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 用户列表 </span></a></li>
+                        </ul>
+                    </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">系统管理 </span></a>
                         <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item m-l-5"><a href="{:url('/system/websiteSetup')}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 网站设置 </span></a></li>
+                            <li class="sidebar-item m-l-5"><a href="{:url('/system/index')}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 管理员列表 </span></a></li>
                         </ul>
                     </li>
                 </ul>
