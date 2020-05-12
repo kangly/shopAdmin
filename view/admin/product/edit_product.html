@@ -1,5 +1,5 @@
 <div class="card m-t-10">
-    <form class="form-horizontal" method="post" id="admin-edit-sell-form" action="{:url('/product/saveProduct')}">
+    <form class="form-horizontal" enctype="multipart/form-data" method="post" id="admin-edit-product-form" action="{:url('/product/saveProduct')}">
         <div class="card-body p-t-0">
             <div class="form-group row">
                 <label for="title" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 商品名称</label>
@@ -8,7 +8,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <!--<div class="form-group row">
                 <label for="category_id" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 商品分类</label>
                 <div class="col-sm-4">
                     <select class="form-control" name="category_id" id="category_id">
@@ -16,15 +16,12 @@
                         <option value="1">默认分类</option>
                     </select>
                 </div>
-            </div>
+            </div>-->
 
             <div class="form-group row">
-                <label for="image" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 封面图片</label>
+                <label for="product_image" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 封面图片</label>
                 <div class="col-sm-8">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="image">
-                        <label class="custom-file-label" for="image">Choose file</label>
-                    </div>
+                    <input type="file" name="product_image" id="product_image">
                 </div>
             </div>
 
@@ -50,68 +47,73 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-2 "><h4 class="pull-right">SKU 列表</h4></div>
-                <div class="col-sm-8"></div>
+                <div class="col-sm-2"><h4 class="pull-right">SKU 属性</h4></div>
             </div>
 
             <hr class="m-t-0">
 
-            <div>
-                <div class="form-group row">
-                    <label for="sku_title" class="col-sm-2 col-form-label"><span class="text-danger">*</span> SKU 名称</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sku_title" id="sku_title" placeholder="SKU 名称">
-                    </div>
-                </div>
+            <div id="skuFormList">
 
-                <div class="form-group row">
-                    <label for="sku_desc" class="col-sm-2 col-form-label"><span class="text-danger">*</span> SKU 描述</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sku_desc" id="sku_desc" placeholder="SKU 描述">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="sku_price" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 单价</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sku_price" id="sku_price" placeholder="单价">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="sku_stock" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 剩余库存</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sku_stock" id="sku_stock" placeholder="剩余库存">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label"></label>
-                    <div class="col-sm-8">
-                        <div class="remove btn btn-warning btn-sm float-right"><i class="fa fa-trash"></i> 移除</div>
-                    </div>
-                </div>
-
-                <hr>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-8">
-                    <div class="add btn btn-success btn-sm"><i class="fa fa-save"></i> 新增</div>
+                    <div class="add btn btn-success btn-sm" onclick="addSkuList()"><i class="fa fa-save"></i> 新增</div>
                 </div>
             </div>
-
         </div>
-        <input type="hidden" name="_method" value="POST">
-        <input type="hidden" name="member_id" value="{$member.id|default=0}">
+        <input type="hidden" name="id" value="{$product.id|default=0}">
+        <input type="hidden" name="sku_json" id="productSkuListJson" value="">
     </form>
+</div>
+
+<div class="hide" id="skuList">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><span class="text-danger">*</span> SKU 名称</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="sku_title[]" placeholder="SKU 名称">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><span class="text-danger">*</span> SKU 描述</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="sku_desc[]" placeholder="SKU 描述">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><span class="text-danger">*</span> 单价</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="sku_price[]" placeholder="单价">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><span class="text-danger">*</span> 剩余库存</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="sku_stock[]" placeholder="剩余库存">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-8">
+            <div class="remove btn btn-warning btn-sm float-right" onclick="removeSkuList(this)"><i class="fa fa-trash"></i> 移除</div>
+        </div>
+    </div>
+
+    <hr>
 </div>
 
 <script type="text/javascript">
     $(function() {
         ClassicEditor
             .create( document.querySelector( '#desc' ), {
+                ckfinder: {
+                    uploadUrl: '/product/uploadImg'
+                },
                 toolbar: {
                     items: [
                         'heading',
@@ -171,13 +173,82 @@
             } );
     });
 
+    function addSkuList(){
+        var clone = $('#skuList').clone().html();
+        var clone_html = '<div class="productSkuList">'+clone+'</div>';
+        $('#skuFormList').prepend(clone_html);
+    }
+    
+    function removeSkuList(obj){
+        $(obj).parent().parent().parent().remove();
+    }
+    
     function save(callback){
-        submitTheForm('admin-edit-sell-form',function(data){
-            if(data>0){
-                if(callback){
-                    callback();
-                }
+        if(_trim_assign($('#title'))==''){
+            $('#title').focus();
+            tip_error('商品名称不能为空!',5);
+            return false;
+        }
+        if($('#product_image').val()==''){
+            tip_error('封面图片不能为空!',5);
+            return false;
+        }
+        var desc = editor.getData();
+        if(desc){
+            $('#desc').val(desc);
+        }else{
+            tip_error('商品描述不能为空!',5);
+            return false;
+        }
+        var status = true;
+        $('#admin-edit-product-form .productSkuList').each(function(){
+            if(_trim_assign($(this).find('input[name="sku_title[]"]'))==''){
+                $(this).find('input[name="sku_title[]"]').focus();
+                tip_error('SKU名称不能为空!',5);
+                status = false;
+                return false;
+            }
+
+            if(_trim_assign($(this).find('input[name="sku_desc[]"]'))==''){
+                $(this).find('input[name="sku_desc[]"]').focus();
+                tip_error('SKU描述不能为空!',5);
+                status = false;
+                return false;
+            }
+
+            if(_trim_assign($(this).find('input[name="sku_price[]"]'))==''){
+                $(this).find('input[name="sku_price[]"]').focus();
+                tip_error('单价不能为空!',5);
+                status = false;
+                return false;
+            }
+
+            if(_trim_assign($(this).find('input[name="sku_stock[]"]'))==''){
+                $(this).find('input[name="sku_stock[]"]').focus();
+                tip_error('剩余库存不能为空!',5);
+                status = false;
+                return false;
             }
         });
+        if(status){
+            var sku_json = new Array();
+            var sku_no = 0;
+            $('#admin-edit-product-form .productSkuList').each(function(){
+                sku_json[sku_no] = {};
+                sku_json[sku_no].title = $(this).find('input[name="sku_title[]"]').val();
+                sku_json[sku_no].desc = $(this).find('input[name="sku_desc[]"]').val();
+                sku_json[sku_no].price = $(this).find('input[name="sku_price[]"]').val();
+                sku_json[sku_no].stock = $(this).find('input[name="sku_stock[]"]').val();
+                sku_no++;
+            });
+            $('#admin-edit-product-form #productSkuListJson').val(JSON.stringify(sku_json));
+            submitTheForm('admin-edit-product-form',function(data){
+                if(data>0){
+                    if(callback){
+                        callback();
+                    }
+                }
+            });
+        }
     }
 </script>

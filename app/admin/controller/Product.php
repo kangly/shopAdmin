@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\service\Upload;
 use app\Request;
 use think\facade\View;
 
@@ -22,13 +23,20 @@ class Product extends Base
         return View::fetch();
     }
 
-    public function saveProduct(Request $request)
+    public function saveProduct()
     {
-
+        $data = new \app\admin\service\Product($this->app);
+        echo $data->saveProduct();
     }
 
     public function deleteProduct(Request $request)
     {
 
+    }
+
+    public function uploadImg()
+    {
+        $image = new Upload($this->app);
+        return $image->uploadImage();
     }
 }
